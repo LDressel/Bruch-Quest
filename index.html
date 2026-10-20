@@ -24,6 +24,7 @@ img{max-width:100%}
   --oni:#7C4DFF; --oni-soft:#EDE5FF; --skin:#FFE6D6; --hair:#2E46C8;
   --night:#140C33; --night-2:#2F1A6B; --on-night:#F4F0FF; --blood:#FF2A55; --steel:#E6ECF5; --iron:#9AA7BD;
   --fill:var(--sky);
+  --rainbow:linear-gradient(90deg,#FF4F5E,#FF9F1C,#FFD23F,#2EC4B6,#3A86FF,#8338EC);
   --display:"Dela Gothic One","Arial Black",system-ui,sans-serif;
   --body:"M PLUS Rounded 1c","Nunito","Segoe UI",system-ui,sans-serif;
   color-scheme:light;
@@ -136,6 +137,19 @@ button{font:inherit;color:inherit}
 .world.boss .mico svg{max-width:96px;max-height:96px}
 .bossgo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
 .bossgo .stars svg{width:24px;height:24px}
+.world.challenge{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;background:linear-gradient(120deg,#FFF0F1,#FFF7E0,#E8FBF3,#E8F1FF,#F3EAFF)}
+.world.challenge h3{font-size:1.4rem}
+.chico{width:110px;height:110px;border:3px solid var(--ink);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--panel);position:relative}
+.chico::before{content:"";position:absolute;inset:-9px;border-radius:50%;background:conic-gradient(#FF4F5E,#FF9F1C,#FFD23F,#2EC4B6,#3A86FF,#8338EC,#FF4F5E);z-index:-1}
+.chico b{font-family:var(--display);font-weight:400;font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums}
+.chico small{font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.world.challenge .chwrap{isolation:isolate;padding:9px}
+.rbbar{display:block;height:14px;border:2.5px solid var(--ink);border-radius:20px;overflow:hidden;background:var(--panel);margin:10px 0 4px;max-width:380px}
+.rbbar i{display:block;height:100%;background:var(--rainbow)}
+.btn.rb{background:var(--rainbow);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.hearts.lite svg{width:30px;height:28px}
+.hpbar.rainbow i{background:var(--rainbow)}
+.stagenum{font-family:var(--display);font-size:2.3rem;color:var(--sun);line-height:1}
 .world.secret{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;color:var(--on-night);
   background:radial-gradient(circle at 12% 50%,var(--night-2),var(--night) 60%);position:relative;overflow:hidden}
 .world.secret::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
@@ -324,6 +338,22 @@ footer{margin-top:36px;display:flex;justify-content:space-between;gap:12px;flex-
 
 /* Result */
 .overlay{position:fixed;inset:0;z-index:50;background:rgba(26,20,51,.55);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.explaincard{max-width:640px;width:100%;margin:auto;padding:22px 24px;display:flex;flex-direction:column;gap:14px;animation:pop .35s}
+.exhead{display:flex;align-items:center;gap:14px}
+.exhead .mika{width:76px;flex:none}
+.exhead h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.15}
+.exq{margin:0;padding:10px 14px;background:var(--paper);border:2.5px dashed rgba(26,20,51,.3);border-radius:12px;font-weight:800;font-size:1.1rem}
+.exq .oniline svg{width:40px;height:40px}
+.exfig{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.exfig:empty{display:none}
+.exfig .fig{max-height:190px;width:auto}
+.exfig .nlwrap .fig{max-height:none;width:100%}
+.exsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:st}
+.exsteps li{counter-increment:st;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;font-weight:700;font-size:1.02rem;line-height:1.45}
+.exsteps li::before{content:counter(st);width:30px;height:30px;border-radius:50%;background:var(--sky);border:2.5px solid var(--ink);color:#fff;font-family:var(--display);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.exsol{background:var(--leaf-soft);border:2.5px solid var(--ink);border-radius:12px;padding:10px 14px;font-weight:800}
+.exsol .frac{font-size:1.05em}
+.explaincard .btn{align-self:flex-end}
 .resultcard{max-width:500px;width:100%;margin:auto;padding:26px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;
   background:repeating-conic-gradient(from 0deg at 50% 30%,var(--sun-soft) 0deg 5deg,var(--panel) 5deg 12deg)}
 .resultcard h2{font-family:var(--display);font-weight:400;font-size:2rem;margin:0;color:var(--sun);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--sakura)}
@@ -354,7 +384,8 @@ footer{margin-top:36px;display:flex;justify-content:space-between;gap:12px;flex-
   .coach .bubble::before{top:50%;left:-14px;transform:translateY(-50%) rotate(-45deg)}
   .merk{grid-template-columns:1fr;justify-items:start}
   .pips{margin-left:0}
-  .world.secret{grid-template-columns:auto 1fr}
+  .world.secret,.world.challenge{grid-template-columns:auto 1fr}
+  .world.challenge .bossgo{grid-column:1/-1}
   .secretgo{grid-column:1/-1;flex-direction:row;justify-content:space-between;width:100%}
   .secretimg,.secretimg svg{width:96px;height:96px}
   .rank{display:none}
@@ -372,6 +403,8 @@ footer{margin-top:36px;display:flex;justify-content:space-between;gap:12px;flex-
   .foeimg{width:72px;height:72px}
   .foeimg svg{width:64px;height:64px}
   .secretgo{flex-direction:column}
+  .chico{width:80px;height:80px}
+  .chico b{font-size:1.6rem}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -439,7 +472,7 @@ footer{margin-top:36px;display:flex;justify-content:space-between;gap:12px;flex-
     </div>
 
     <footer>
-      <span>Grün = beim 1. Versuch richtig · Blau = beim 2. Versuch · Orange = Lösung angezeigt · Im Bosskampf zählt nur der 1. Versuch.</span>
+      <span>Grün = richtig · Orange = falsch, dann zeigt Mika dir den Lösungsweg · Tipp: Nutze den Tipp-Button, bevor du antwortest.</span>
       <button class="linkbtn" id="resetBtn">Fortschritt zurücksetzen</button>
     </footer>
   </section>
@@ -484,6 +517,17 @@ footer{margin-top:36px;display:flex;justify-content:space-between;gap:12px;flex-
       </aside>
     </div>
   </section>
+</div>
+
+<div class="overlay" id="explain" hidden>
+  <div class="panel explaincard" role="dialog" aria-modal="true" aria-labelledby="exTitle">
+    <div class="exhead"><div class="mika" id="exMika"></div><div><p class="kicker">Nicht schlimm, so lernst du es!</p><h2 id="exTitle">So löst du die Aufgabe</h2></div></div>
+    <div class="exq" id="exQ"></div>
+    <div class="exfig" id="exFig"></div>
+    <ol class="exsteps" id="exSteps"></ol>
+    <div class="exsol" id="exSol"></div>
+    <button class="btn go" id="exClose">Verstanden →</button>
+  </div>
 </div>
 
 <div class="overlay" id="result" hidden>
@@ -590,6 +634,9 @@ function mikaSVG(mood){
   const eyes=mood==="happy"?eyesHappy:mood==="oops"?eyesOops:eyesIdle;
   const arm=mood==="happy"?`<path d="M146 196 L176 150" stroke="var(--ink)" stroke-width="15" stroke-linecap="round"/><path d="M146 196 L176 150" stroke="var(--skin)" stroke-width="9" stroke-linecap="round"/>
     <path d="M176 140 l3 8 8 1-6 6 2 8-7-4-7 4 2-8-6-6 8-1z" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>`:"";
+  const RB=["#8338EC","#3A86FF","#2EC4B6","#FFD23F","#FF9F1C","#FF4F5E"],ANG=[64,50,36,22,8,-6];
+  const wingSide=(tx,ty,mir)=>`<g transform="translate(${tx},${ty})${mir?" scale(-1,1)":""}">${ANG.map((a,i)=>`<path transform="rotate(${a})" d="M0 0 C-26 -14 -66 -14 -${94-i*3} -2 C-66 10 -26 12 0 0Z" fill="${RB[i]}" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>`).join("")}<path d="M-8 -2 C-30 -8 -50 -8 -66 -4" transform="rotate(30)" stroke="#fff" stroke-opacity=".55" stroke-width="3" fill="none" stroke-linecap="round"/></g>`;
+  const wings=has("wings")?wingSide(72,190,false)+wingSide(128,190,true):"";
   const sword=has("blade")?`<path d="M30 214 L10 92 L20 86 L42 210Z" fill="var(--steel)" ${S3}/><path d="M18 210 L50 202" stroke="var(--ink)" stroke-width="8" stroke-linecap="round"/><path d="M18 210 L50 202" stroke="var(--sun)" stroke-width="3.5" stroke-linecap="round"/><circle cx="15" cy="86" r="8" fill="#E2365F" ${S3}/>`:"";
   const scarf=has("scarf")?`<path d="M72 176 Q100 194 128 176 L132 192 Q100 210 68 192Z" fill="var(--miss)" ${S3}/><path d="M110 198 L126 234 L110 236 L100 202Z" fill="var(--miss)" ${S3}/><path d="M82 186 L80 196 M100 192 L100 202 M118 186 L120 196" stroke="var(--ink)" stroke-width="2.5"/>`:"";
   const amulet=has("amulet")?`<circle cx="100" cy="216" r="11" fill="var(--sun)" ${S3}/><circle cx="100" cy="211" r="2" fill="var(--ink)"/><rect x="94" y="215" width="12" height="2.5" fill="var(--ink)"/><circle cx="100" cy="221" r="2" fill="var(--ink)"/>`:"";
@@ -597,8 +644,8 @@ function mikaSVG(mood){
   const band=has("band")?`<path d="M40 82 Q100 58 160 82 L160 96 Q100 72 40 96Z" fill="var(--miss)" ${S3}/><rect x="86" y="66" width="28" height="15" rx="3" fill="var(--steel)" ${S3}/><path d="M42 88 L16 102 L22 110 L44 96Z" fill="var(--miss)" ${S3}/>`:"";
   const horns=has("helm")&&!has("crown")?`<path d="M50 66 L30 30 L66 52Z" fill="var(--oni)" ${S3}/><path d="M150 66 L170 30 L134 52Z" fill="var(--oni)" ${S3}/>`:has("helm")?`<path d="M44 74 L22 40 L60 60Z" fill="var(--oni)" ${S3}/><path d="M156 74 L178 40 L140 60Z" fill="var(--oni)" ${S3}/>`:"";
   const crown=has("crown")?`<path d="M64 44 L60 8 L82 26 L100 -2 L118 26 L140 8 L136 44Z" fill="var(--sun)" ${S3}/><circle cx="100" cy="30" r="5" fill="var(--sakura)" stroke="var(--ink)" stroke-width="2.5"/><circle cx="78" cy="36" r="3.5" fill="var(--sky)" stroke="var(--ink)" stroke-width="2"/><circle cx="122" cy="36" r="3.5" fill="var(--sky)" stroke="var(--ink)" stroke-width="2"/>`:"";
-  return `<svg viewBox="0 -4 200 240" role="img" aria-label="Mika, deine Begleiterin">
-  ${sword}
+  return `<svg viewBox="${has("wings")?"-42 -4 284 240":"0 -4 200 240"}" role="img" aria-label="Mika, deine Begleiterin">
+  ${wings}${sword}
   <path d="M34 128 Q18 64 70 38 Q100 26 132 38 Q184 64 166 132 Q160 160 148 176 L52 176 Q40 160 34 128Z" fill="var(--hair)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
   <path d="M58 236 Q58 186 100 180 Q142 186 142 236Z" fill="var(--sakura)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
   <path d="M84 182 L100 204 L116 182Z" fill="#fff" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
@@ -681,7 +728,11 @@ const ITEMS={
   crown:{name:"Krone des Bruch-Kaisers",slot:"Krone",rarity:"Legendär",rc:"r-legendaer",
     perk:"Titel „Bruch-Kaiser“, goldener Erfahrungsbalken und +10 % Erfahrung.",
     flavour:"Ryūga trug sie tausend Jahre lang. Jetzt gehört sie dir und mit ihr ¾ der Macht über alle Brüche. Das letzte Viertel musst du dir selbst verdienen."}};
-const ITEM_ORDER=["blade","scarf","amulet","gear","band","helm","crown"];
+ITEMS.wings={name:"Regenbogenflügel",slot:"Flügel",rarity:"Legendär",rc:"r-legendaer",from:"Challenge-Modus, Stufe 100",
+  perk:"Mika kann fliegen! Kein Spielvorteil, nur zum Angeben. Und das darfst du.",
+  flavour:"Nur wer 100 Stufen am Stück schafft, sieht Mika fliegen. Sechs Farben: fünf für die Welten, eine für dich."};
+ITEM_ICON.wings=`<svg viewBox="-50 -50 100 70">${["#8338EC","#3A86FF","#2EC4B6","#FFD23F","#FF9F1C","#FF4F5E"].map((c,i)=>`<path transform="translate(0,12) rotate(${64-i*14})" d="M0 0 C-14 -8 -34 -8 -${46-i*2} -1 C-34 6 -14 7 0 0Z" fill="${c}" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round"/>`).join("")}${["#8338EC","#3A86FF","#2EC4B6","#FFD23F","#FF9F1C","#FF4F5E"].map((c,i)=>`<path transform="translate(0,12) scale(-1,1) rotate(${64-i*14})" d="M0 0 C-14 -8 -34 -8 -${46-i*2} -1 C-34 6 -14 7 0 0Z" fill="${c}" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round"/>`).join("")}</svg>`;
+const ITEM_ORDER=["blade","scarf","amulet","gear","band","helm","crown","wings"];
 
 /* ---------- Diagramme ---------- */
 function sector(cx,cy,r,a0,a1){const p=a=>[(cx+r*Math.sin(a*2*Math.PI)).toFixed(2),(cy-r*Math.cos(a*2*Math.PI)).toFixed(2)];
@@ -743,6 +794,7 @@ function qErkennen(shape,scatter){
   const vis=shape==="circle"?circleSVG({n:d,colored:col}):shape==="rect"?rectSVG({n:d,colored:col}):stripSVG({n:d,colored:col});
   const what=shape==="circle"?"der ganzen Kreisfläche":shape==="rect"?"des ganzen Rechtecks":"der ganzen Strecke";
   return{kind:"choice",prompt:`Welcher Bruchteil ${what} ist blau?`,visual:vis,options:fracOptions(k,d),
+    steps:[`Zähle alle gleich großen Teile: Es sind ${d}. Das ist der Nenner.`,`Zähle die blauen Teile: Es sind ${k}. Das ist der Zähler.`,`Der blaue Teil ist also ${F(k,d)} ${what}.`],
     hint:"Zähle zuerst alle gleich großen Teile: Das ist der Nenner. Dann zähle die blauen Teile: Das ist der Zähler.",
     solution:`${k} von ${d} gleich großen Teilen sind blau. Das ist ${F(k,d)}.`}}
 function qFaerben(erweitern,shape){let d,s;
@@ -750,6 +802,7 @@ function qFaerben(erweitern,shape){let d,s;
   const k=R(1,d-1);
   return{kind:"paint",shape,s,target:[k,d],
     prompt:!erweitern?`Färbe ${F(k,d)} der Fläche. Tippe die Teile an.`:`Färbe ${F(k,d)} der Fläche. Achtung: Die Fläche hat ${s} Teile!`,
+    steps:!erweitern?[`Der Nenner ${d} sagt: Das Ganze ist in ${d} gleich große Teile geteilt.`,`Der Zähler ${k} sagt: Färbe ${k} dieser Teile.`]:[`Die Fläche hat ${s} Teile. ${F(1,d)} der Fläche sind ${s} : ${d} = ${s/d} Teile.`,`Du brauchst ${F(k,d)}, also ${k}-mal so viel: ${s/d} · ${k} = ${k*s/d} Teile.`,`Färbe ${k*s/d} von ${s} Teilen.`],solfig:shape==="circle"?circleSVG({n:s,colored:new Set(range(k*s/d)),size:200}):rectSVG({n:s,colored:new Set(range(k*s/d))}),
     hint:!erweitern?`Der Nenner ${d} sagt: ${d} gleich große Teile. Der Zähler ${k} sagt: Nimm ${k} davon.`:`Wie viele der ${s} Teile ergeben zusammen ${F(1,d)}? Nimm das dann ${k}-mal.`,
     solution:`Du brauchst ${k*s/d} von ${s} Teilen, denn ${F(k,d)} = ${F(k*s/d,s)}.`}}
 
@@ -762,12 +815,14 @@ function qMixedRead(asFraction){const w=R(1,3),d=pick([2,3,4,6,8]),r=R(1,d-1);
     inputs:`<div class="mixin"><input class="ans" data-k="w" inputmode="numeric" aria-label="Ganze Zahl"><span class="fin"><input class="ans" data-k="n" inputmode="numeric" aria-label="Zähler"><i class="bar"></i><input class="ans" data-k="d" inputmode="numeric" aria-label="Nenner"></span></div>`,
     validate:v=>v.w===w&&v.d>0&&v.n>0&&v.n<v.d&&v.n*d===r*v.d,
     coach:v=>v.w!==w?"Zähle die ganzen Kreise noch einmal.":"Schau auf den angefangenen Kreis: In wie viele Teile ist er geteilt?",
+    steps:[`Zähle die ganzen blauen Kreise: Es sind ${w}.`,`Der angefangene Kreis hat ${d} Teile, ${r} davon sind blau: Das sind ${F(r,d)}.`,`Zusammen: ${w} + ${F(r,d)} = ${M(w,r,d)}.`],
     hint:"Eine gemischte Zahl besteht aus einer ganzen Zahl und einem Bruch. Erst die ganzen Kreise zählen, dann den Rest als Bruch.",
     solution:`${w} ganze Kreise und ${F(r,d)}: ${M(w,r,d)}`};
   return{kind:"input",prompt:"Wie viele Kreisflächen sind blau? Schreibe als Bruch.",visual:mixedCircles(w,d,r,true),
     inputs:`<div class="mixin"><span class="fin"><input class="ans" data-k="n" inputmode="numeric" aria-label="Zähler"><i class="bar"></i><input class="ans" data-k="d" inputmode="numeric" aria-label="Nenner"></span></div>`,
     validate:v=>v.d>0&&v.n*d===(w*d+r)*v.d,
     coach:()=>`Zähle alle blauen Teile in allen Kreisen. Jeder Kreis hat ${d} Teile.`,
+    steps:[`Jeder Kreis hat ${d} gleich große Teile.`,`Die ${w} ganzen Kreise haben zusammen ${w} · ${d} = ${w*d} Teile.`,`Dazu kommen ${r} blaue Teile im letzten Kreis: ${w*d} + ${r} = ${w*d+r}.`,`Der Nenner bleibt ${d}. Also ${F(w*d+r,d)}.`],
     hint:`Jeder ganze Kreis hat ${d} Teile. Zähle alle blauen Teile zusammen. Das ist der Zähler.`,
     solution:`${w} · ${d} + ${r} = ${w*d+r} Teile, also ${F(w*d+r,d)}`}}
 function qMixedConvert(toMixed){const D=pick([2,3,4,5,6,8]),w=R(1,4),r=R(1,D-1),N=w*D+r;
@@ -775,11 +830,13 @@ function qMixedConvert(toMixed){const D=pick([2,3,4,5,6,8]),w=R(1,4),r=R(1,D-1),
     for(const c of shuffle([[w+1,r],[w-1,r],[w,D-r],[w,r+1],[w,r-1],[r,w]])){if(opts.length>=4)break;if(c[0]<1||c[1]<1||c[1]>=D||opts.some(o=>o[0]===c[0]&&o[1]===c[1]))continue;opts.push(c)}
     return{kind:"choice",prompt:`Welche gemischte Zahl ist gleich ${F(N,D)}?`,
       options:shuffle(opts.map(o=>({html:M(o[0],o[1],D),ok:o[0]===w&&o[1]===r}))),
-      hint:`Wie oft passt ${D} in ${N}? Das ist die ganze Zahl. Der Rest kommt in den Zähler.`,
+      steps:[`Teile den Zähler durch den Nenner: ${N} : ${D} = ${w} Rest ${r}.`,`Die ${w} ist die ganze Zahl. Der Rest ${r} kommt in den Zähler, der Nenner bleibt ${D}.`,`Ergebnis: ${F(N,D)} = ${M(w,r,D)}.`],
+    hint:`Wie oft passt ${D} in ${N}? Das ist die ganze Zahl. Der Rest kommt in den Zähler.`,
       solution:`${D} passt ${w}-mal in ${N}, Rest ${r}. Also ${F(N,D)} = ${M(w,r,D)}`}}
   const opts=[N];for(const c of shuffle([w+r,w*D,N+1,N-1,w*r+D,N+D])){if(opts.length>=4)break;if(c<1||opts.includes(c))continue;opts.push(c)}
   return{kind:"choice",prompt:`Welcher Bruch ist gleich ${M(w,r,D)}?`,
     options:shuffle(opts.map(n=>({html:F(n,D),ok:n===N}))),
+    steps:[`Rechne Ganze mal Nenner: ${w} · ${D} = ${w*D}.`,`Zähle den Zähler dazu: ${w*D} + ${r} = ${N}.`,`Der Nenner bleibt ${D}. Also ${M(w,r,D)} = ${F(N,D)}.`],
     hint:`Jedes Ganze hat ${D} Teile. Rechne ${w} · ${D} und zähle dann ${r} dazu.`,
     solution:`${w} · ${D} + ${r} = ${N}. Also ${M(w,r,D)} = ${F(N,D)}`}}
 
@@ -791,6 +848,7 @@ function qVon(sach){const d=pick([2,3,4,5,6,7,8,9,10,12]),k=R(1,d-1),m=R(2,9),N=
     inputs:`<div class="chain"><span class="node">${N}</span><span class="op">: ${d}</span><span class="arr">→</span><input class="ans wide" data-k="a" inputmode="numeric" aria-label="Ergebnis geteilt durch ${d}"><span class="op">· ${k}</span><span class="arr">→</span><input class="ans wide" data-k="b" inputmode="numeric" aria-label="Ergebnis"></div>`,
     validate:v=>v.a===m&&v.b===m*k,
     coach:v=>v.a!==m?`Rechne zuerst ${N} : ${d}.`:`Der erste Schritt stimmt! Jetzt ${m} · ${k}.`,
+    steps:[`Teile das Ganze durch den Nenner: ${N} : ${d} = ${m}. So viel ist ${F(1,d)}.`,`Nimm das mal den Zähler: ${m} · ${k} = ${m*k}.`,sach?`Antwort: Es sind ${m*k} ${ctx[1]}.`:`Also ist ${F(k,d)} von ${N} = ${m*k}.`],
     hint:`So geht's: Erst durch den Nenner teilen (${N} : ${d}), dann mit dem Zähler malnehmen.`,
     solution:`(${N} : ${d}) · ${k} = ${m} · ${k} = ${m*k}`}}
 const GANZ_CTX=[["des Weges","km"],["des Gewichts","kg"],["der Fläche","m²"],["der Strecke","m"],["des Taschengelds","€"],["der Wanderung","km"]];
@@ -801,6 +859,7 @@ function qGanzes(unitOnly){const d=unitOnly?pick([2,3,4,5,6,8,10]):pick([3,4,5,6
     visual:stripSVG({n:d,colored:new Set(range(k)),top:"? (das Ganze)",under:`${V} ${u}`}),inputs,
     validate:v=>(k===1||v.a===p)&&v.b===W,
     coach:v=>k>1&&v.a!==p?`${V} ${u} sind ${k} Teile. Wie viel ist ein Teil? Rechne ${V} : ${k}.`:`Ein Teil ist ${p} ${u}. Das Ganze hat ${d} Teile.`,
+    steps:k===1?[`${F(1,d)} sind ${V} ${u}.`,`Das Ganze hat ${d} solche Teile. Rechne mal den Nenner: ${V} · ${d} = ${W} ${u}.`]:[`${F(k,d)} sind ${V} ${u}. Teile durch den Zähler: ${V} : ${k} = ${p} ${u}. So viel ist ${F(1,d)}.`,`Das Ganze hat ${d} solche Teile. Rechne mal den Nenner: ${p} · ${d} = ${W} ${u}.`],
     hint:k===1?`Ein Teil ist ${V} ${u}. Das Ganze hat ${d} solche Teile.`:`Rechne rückwärts: Erst durch den Zähler ${k} teilen, dann mal den Nenner ${d}.`,
     solution:k===1?`${V} · ${d} = ${W} ${u}`:`(${V} : ${k}) · ${d} = ${p} · ${d} = ${W} ${u}`}}
 
@@ -814,23 +873,27 @@ const CONV={
   kg:{from:"kg",to:"g",toName:"Gramm",base:1000,ds:[2,4,5,8,10],vis:(k,d)=>stripSVG({n:d,colored:new Set(range(k)),top:"1 kg = 1000 g"})}};
 function qClock(){const m=5*R(1,11),g=gcd(m,60),k=m/g,d=60/g;
   return{kind:"choice",prompt:"Der große Zeiger ist von 12 bis zur blauen Kante gelaufen. Welcher Bruchteil einer Stunde ist das?",visual:clockSVG(m),options:fracOptions(k,d),
+    steps:[`Eine ganze Stunde sind 60 Minuten. Der Zeiger ist ${m} Minuten gelaufen.`,`Teile die Uhr in ${d} gleich große Stücke: Jedes Stück hat 60 : ${d} = ${60/d} Minuten.`,`${m} Minuten sind ${k} solche Stücke, denn ${k} · ${60/d} = ${m}. Also ${F(k,d)} h.`],
     hint:"Eine ganze Runde sind 60 Minuten. Zähle die 5-Minuten-Schritte bis zum Zeiger.",
     solution:`Das sind ${m} min von 60 min: ${F(m,60)} = ${F(k,d)} h`}}
 function qConv(key){const c=CONV[key];const d=pick(c.ds),k=R(1,d-1),one=c.base/d,res=one*k;
   return{kind:"input",prompt:`Wie viele ${c.toName} sind ${F(k,d)} ${c.from}?`,visual:c.vis(k,d),
     inputs:`<div class="unitin"><input class="ans wide" data-k="x" inputmode="numeric" aria-label="Ergebnis in ${c.toName}"><span class="unit">${c.to}</span></div>`,
     validate:v=>v.x===res,coach:()=>`Wie viel ist ${F(1,d)} von ${c.base} ${c.to}?`,
+    steps:[`Rechne zuerst ${F(1,d)} von ${c.base} ${c.to}: ${c.base} : ${d} = ${one} ${c.to}.`,`Nimm das mal den Zähler: ${one} · ${k} = ${res} ${c.to}.`,`Also ${F(k,d)} ${c.from} = ${res} ${c.to}.`],
     hint:`${F(1,d)} von ${c.base} ${c.to} = ${c.base} : ${d} = ${one} ${c.to}. Und jetzt mal ${k}.`,
     solution:`(${c.base} : ${d}) · ${k} = ${one} · ${k} = ${res} ${c.to}`}}
 
 /* Welt 5: Zahlenstrahl */
 function qRead(){const d=pick([3,4,5,6,8,10,12]),j=R(1,d-1);
   return{kind:"choice",prompt:"Welcher Bruch ist am Zahlenstrahl markiert?",visual:`<div class="nlwrap">${lineSVG({max:1,d,marks:[{j,label:"?"}]})}</div>`,options:fracOptions(j,d),
+    steps:[`Die Strecke von 0 bis 1 ist in ${d} gleich große Teile geteilt. Das ist der Nenner.`,`Zähle die Schritte von 0 bis zum Pfeil: Es sind ${j}. Das ist der Zähler.`,`Der Pfeil zeigt auf ${F(j,d)}.`],
     hint:"Zähle, in wie viele Teile die Strecke von 0 bis 1 geteilt ist. Dann zähle die Schritte bis zum Pfeil.",
     solution:`Die Strecke 0 bis 1 hat ${d} Teile. Der Pfeil steht beim ${j}. Strich: ${F(j,d)}`}}
 function qPlace(max){const d=pick([3,4,5,6,8,10]),k=max===1?R(1,d-1):R(d+1,2*d-1);
   const label=k>d&&Math.random()<.5?M(1,k-d,d):F(k,d);
   return{kind:"line",max,d,target:k,prompt:`Ziehe oder tippe den Pfeil auf ${label}.`,
+    steps:k<=d?[`Von 0 bis 1 ist die Strecke in ${d} gleich große Teile geteilt. Jeder Schritt ist ${F(1,d)}.`,`${F(k,d)} bedeutet: ${k} Schritte nach rechts.`,`Setze den Pfeil auf den ${k}. Strich nach der 0.`]:[`Von 0 bis 1 sind es ${d} Schritte. Jeder Schritt ist ${F(1,d)}.`,`${M(1,k-d,d)} = ${F(k,d)}: Das sind ${d} Schritte bis zur 1 und dann noch ${k-d} Schritte weiter.`,`Setze den Pfeil auf den ${k}. Strich nach der 0.`],
     hint:k>d?`Von 0 bis 1 sind es ${d} kleine Schritte. Gehe insgesamt ${k} kleine Schritte nach rechts.`:`Der Abschnitt von 0 bis 1 ist in ${d} gleich große Teile geteilt. Gehe ${k} kleine Schritte von der 0 nach rechts.`,
     solution:`${label} liegt ${k} kleine Schritte rechts von der 0.`,
     reveal:()=>lineSVG({max,d,marks:[{j:k,label:`${k}/${d}`,cls:"ok"}]})}}
@@ -838,6 +901,7 @@ function qCompare(){const d1=pick([2,3,4,5]),d2=d1*2;let a=R(1,d1-1),b=R(1,d2-1)
   const big=a*2>b?"A":"B";
   return{kind:"choice",prompt:`Welcher Bruch ist größer? ${F(a,d1)} oder ${F(b,d2)}`,visual:`<div class="nlwrap">${lineSVG({max:1,d:d2})}</div>`,
     options:[{html:F(a,d1),ok:big==="A"},{html:F(b,d2),ok:big==="B"}],
+    steps:[`Der Zahlenstrahl ist in ${d2} gleich große Teile geteilt.`,`${F(1,d1)} ist so lang wie 2 dieser Teile. ${F(a,d1)} liegt deshalb beim ${a*2}. Strich.`,`${F(b,d2)} liegt beim ${b}. Strich.`,`Weiter rechts liegt ${big==="A"?F(a,d1):F(b,d2)}. Dieser Bruch ist größer.`],
     hint:"Stell dir beide Brüche auf dem Zahlenstrahl vor. Der Bruch weiter rechts ist größer.",
     solution:`${F(a,d1)} = ${F(a*2,d2)}. Also ist ${big==="A"?F(a,d1):F(b,d2)} größer.`,
     explain:`${F(a,d1)} = ${F(a*2,d2)} liegt ${big==="A"?"weiter rechts":"weiter links"} als ${F(b,d2)}.`,
@@ -871,7 +935,8 @@ function genFehlerPool(){
   return shuffle(shuffle(F_).slice(0,3).concat(shuffle(T_).slice(0,3)))}
 function fehlerQ(s){return{kind:"choice",oni:true,prompt:s.claim,visual:s.vis||"",
   options:[{html:"Stimmt",ok:s.truth,word:true},{html:"Fehler!",ok:!s.truth,word:true}],
-  hint:"Prüfe genau: Sind die Teile gleich groß? Zählt der Nenner alle Teile? Stimmt die Rechnung?",
+    steps:[s.explain,s.truth?"Die Behauptung stimmt also.":"Die Behauptung ist also falsch: Der Chaos-Oni wollte dich austricksen!"],
+hint:"Prüfe genau: Sind die Teile gleich groß? Zählt der Nenner alle Teile? Stimmt die Rechnung?",
   explain:s.explain,solution:s.explain}}
 let fehlerPool=[];
 function qFehler(i){if(i%6===0)fehlerPool=genFehlerPool();return fehlerQ(fehlerPool[i%6])}
@@ -919,7 +984,7 @@ const WORLDS=[
       taunt:"„Ich verstecke mich zwischen den Strichen des Zahlenstrahls. Du wirst mich niemals finden.“",
       defeat:`„Du hast mich bei ${F(5,8)} erwischt. Respekt. Mein Stirnband gehört dir.“`}},
   {id:"oni",special:true,title:"Chaos-Oni",pages:"Alle Themen",wc:"var(--oni-soft)",
-    desc:"Der Chaos-Oni hat überall Fehler versteckt. Stimmt die Behauptung oder ist es eine Falle? Bosskampf: Nur der erste Versuch zählt.",
+    desc:"Der Chaos-Oni hat überall Fehler versteckt. Stimmt die Behauptung oder ist es eine Falle? Jede falsche Antwort kostet ein Herz.",
     icon:()=>oniSVG(96),levels:[]}];
 
 /* Level & Bosse in eine Liste */
@@ -927,7 +992,7 @@ const ALL=[];
 WORLDS.forEach((w,wi)=>{
   w.levels.forEach((l,li)=>{l.id=w.id+"-"+(li+1);l.wi=wi;l.li=li;ALL.push(l)});
   if(w.mb){const m=w.mb;Object.assign(m,{id:w.id+"-mb",wi,li:3,boss:true,mini:true,hp:6,hearts:3,bonus:30,type:"Miniboss",
-    intro:`Miniboss! Gemischte Aufgaben aus „${w.title}“. Nur der erste Versuch zählt.`,
+    intro:`Miniboss! Gemischte Aufgaben aus „${w.title}“. Jede falsche Antwort kostet ein Herz.`,
     gen:()=>pick(w.levels).gen(R(0,5))});ALL.push(m)}});
 const ONI={id:"boss-1",wi:5,li:0,boss:true,name:"Chaos-Oni",type:"Boss",hp:6,hearts:3,bonus:40,drop:"helm",oni:true,
   intro:"Vorsicht, der Chaos-Oni trickst! Prüfe jede Behauptung genau.",
@@ -945,6 +1010,12 @@ const SECRET={id:"secret",wi:-1,li:0,boss:true,secret:true,name:"Schattenkaiser 
   gen:(i,run)=>run.rage?(Math.random()<.3?fehlerQ(pick(genFehlerPool())):pick(HARD_POOL).gen(R(0,5))):pick(NORMAL_POOL).gen(R(0,5))};
 ALL.push(SECRET);
 
+const LVPOOL=n=>WORLDS.filter(w=>w.mb).map(w=>w.levels[n]);
+const CHALLENGE={id:"challenge",name:"Challenge",intro:"Challenge! Gemischte Aufgaben aus allen Welten, sie werden immer schwerer. Du hast 3 Leben. Los geht's!",
+  gen:(i,run)=>{const c=run.cleared;
+    if(c>=50&&Math.random()<.15)return fehlerQ(pick(genFehlerPool()));
+    const pool=c<15?LVPOOL(0):c<40?LVPOOL(0).concat(LVPOOL(1)):c<70?LVPOOL(1).concat(LVPOOL(2)):LVPOOL(2);
+    return pick(pool).gen(R(0,5))}};
 const levelStars=l=>state.stars[l.id]||0;
 const BOSSES=ALL.filter(l=>l.boss&&!l.secret);
 const bossesBeaten=()=>BOSSES.filter(b=>levelStars(b)>0).length;
@@ -966,7 +1037,7 @@ function renderTop(){const r=lvlInfo(state.xp);$("#lvNum").textContent=r.lv;$("#
 const starRow=n=>`<div class="stars" aria-label="${n} von 3 Sternen">${[0,1,2].map(k=>starSVG(k<n)).join("")}</div>`;
 function itemCard(id){const it=ITEMS[id];const src=ALL.find(l=>l.drop===id);
   if(!has(id))return `<div class="panel item missing"><div class="ihead"><div class="iicon">?</div><div><h4>??? · ${it.slot}</h4><span class="rar" style="background:var(--panel)">${it.rarity}</span></div></div>
-    <p class="perk"><span>Droppt bei:</span> ${src.secret?"???":src.name}</p></div>`;
+    <p class="perk"><span>Droppt bei:</span> ${it.from||(src.secret?"???":src.name)}</p></div>`;
   return `<div class="panel item ${it.rc}"><div class="ihead"><div class="iicon">${ITEM_ICON[id]}</div><div><h4>${it.name}</h4><span class="rar">${it.rarity} · ${it.slot}</span></div></div>
     <p class="perk"><span>Effekt:</span> ${it.perk}</p><p class="flavour">${it.flavour}</p></div>`}
 function renderHome(){$("#heroMika").innerHTML=mikaSVG("happy");$("#merkFig").innerHTML=circleSVG({n:4,colored:new Set([0,1,2]),size:110});
@@ -990,6 +1061,13 @@ function renderHome(){$("#heroMika").innerHTML=mikaSVG("happy");$("#merkFig").in
       <div><h3>${ow.title}</h3><p>${ow.desc}</p></div>
       <div class="bossgo">${starRow(levelStars(ONI))}<button class="btn oni" data-l="${ONI.id}">Kampf starten</button></div></div>`;
   const unl=secretUnlocked(),beat=levelStars(SECRET)>0,bb=bossesBeaten(),lv=lvlInfo(state.xp).lv;
+  const chBest=state.chBest||0;
+  html+=`<div class="panel world challenge">
+      <div class="chwrap"><div class="chico"><b>${chBest}</b><small>Rekord</small></div></div>
+      <div><div class="whead" style="justify-content:flex-start;margin-bottom:6px"><span class="ep">CHALLENGE</span><span class="tag">Alle Themen gemischt</span></div>
+        <h3>Wie weit kommst du?</h3><p>Gemischte Aufgaben aus allen Welten, sie werden immer schwerer. Du hast 3 Leben. ${has("wings")?"Mika trägt schon ihre Regenbogenflügel!":"Bei Stufe 100 bekommt Mika Regenbogenflügel."}</p>
+        <span class="rbbar" aria-hidden="true"><i style="width:${Math.min(100, chBest)}%"></i></span><span class="wprog">${has("wings")?`Rekord: ${chBest} Stufen`:`${Math.min(chBest,100)} / 100 Stufen bis zu den Flügeln`}</span></div>
+      <div class="bossgo"><div class="hearts lite">${heartSVG(true)+heartSVG(true)+heartSVG(true)}</div><button class="btn rb" data-ch="1">Challenge starten</button></div></div>`;
   html+=`<div class="panel world secret">
       <div class="secretimg ${unl?"awake":"locked"}">${monsterSVG(SECRET.look,false)}</div>
       <div><div class="whead" style="justify-content:flex-start;margin-bottom:6px"><span class="ep">GEHEIM</span><span class="tag">Letztes Tor</span></div>
@@ -1008,11 +1086,24 @@ function renderHome(){$("#heroMika").innerHTML=mikaSVG("happy");$("#merkFig").in
     unl&&!beat?"Spürst du das? Das letzte Tor ist offen …":nxt?(nxt.boss?`Bereit für ${nxt.name}?`:`Nächster Halt: ${WORLDS[nxt.wi].title}, Level ${nxt.li+1}.`):"Alles geschafft. Du bist eine Legende!";
   renderTop()}
 function nextLevel(after){for(let i=after+1;i<ALL.length;i++){const l=ALL[i];if(l.secret){if(secretUnlocked()&&!levelStars(l))return l;continue}if(levelStars(l)<3)return l}return null}
-$("#worlds").addEventListener("click",e=>{const b=e.target.closest("[data-l]");if(b)startLevel(ALL.findIndex(l=>l.id===b.dataset.l))});
+$("#worlds").addEventListener("click",e=>{if(e.target.closest("[data-ch]")){startChallenge();return}const b=e.target.closest("[data-l]");if(b)startLevel(ALL.findIndex(l=>l.id===b.dataset.l))});
 
 /* ---------- Spiel ---------- */
 let run=null;
 function show(id){$("#home").hidden=id!=="home";$("#play").hidden=id!=="play";window.scrollTo(0,0)}
+function startChallenge(){
+  run={idx:-1,l:CHALLENGE,challenge:true,boss:false,qs:[],i:0,score:0,xp:0,results:[],startXP:state.xp,attempts:0,hearts:3,maxhearts:3,cleared:0,shield:false};
+  $("#pEp").textContent="CHALLENGE";$("#pTitle").textContent="Wie weit kommst du?";
+  $("#pips").hidden=true;$("#battle").hidden=false;$("#sayBtn").hidden=!canSpeak;show("play");renderChallenge();renderQ()}
+function renderChallenge(){const best=Math.max(state.chBest||0,run.cleared);
+  $("#foeImg").innerHTML=`<span class="stagenum">${run.cleared+1}</span>`;$("#foeImg").classList.remove("rage");
+  $("#foeName").textContent=`Stufe ${run.cleared+1}`;
+  const bar=$("#hpBar");bar.classList.add("rainbow");bar.style.setProperty("--n",10);
+  $("#hpFill").style.width=Math.min(100,run.cleared)+"%";
+  $("#hpTxt").textContent=has("wings")?`Rekord: ${best}`:`${Math.min(run.cleared,100)} / 100`;
+  $("#taunt").innerHTML=has("wings")?`Rekord: ${best} Stufen. Schaffst du noch mehr?`:`Bei Stufe 100 bekommt Mika Regenbogenflügel. Dein Rekord: ${best}`;
+  $("#hearts").innerHTML=range(run.maxhearts).map(i=>heartSVG(i<run.hearts)).join("");
+  $("#hearts").setAttribute("aria-label",`${run.hearts} von ${run.maxhearts} Leben`)}
 function startLevel(idx){if(idx<0)return;const l=ALL[idx];if(l.secret&&!secretUnlocked())return;
   run={idx,l,boss:!!l.boss,qs:[],i:0,score:0,xp:0,results:[],startXP:state.xp,attempts:0};
   if(!run.boss)run.qs=range(6).map(i=>l.gen(i));
@@ -1022,7 +1113,7 @@ function startLevel(idx){if(idx<0)return;const l=ALL[idx];if(l.secret&&!secretUn
   $("#pTitle").textContent=l.boss?l.name:`${WORLDS[l.wi].title} · ${l.name}`;
   $("#pips").hidden=run.boss;$("#battle").hidden=!run.boss;
   $("#sayBtn").hidden=!canSpeak;show("play");if(run.boss)renderBattle();renderQ()}
-function renderBattle(){const l=run.l;
+function renderBattle(){const l=run.l;$("#hpBar").classList.remove("rainbow");
   $("#foeImg").innerHTML=l.oni?oniSVG(84):monsterSVG(l.look,run.rage);$("#foeImg").classList.toggle("rage",run.rage);
   $("#foeName").textContent=l.name+(run.rage?" · Wahre Form":"");
   $("#hpBar").style.setProperty("--n",run.maxhp);$("#hpFill").style.width=(run.hp/run.maxhp*100)+"%";$("#hpTxt").textContent=`${run.hp} / ${run.maxhp} HP`;
@@ -1036,7 +1127,7 @@ function bubble(html,cls){const b=$("#bubble");b.className="bubble panel"+(cls?"
 function renderPips(){$("#pips").innerHTML=range(6).map(i=>`<span class="pip ${run.results[i]||(i===run.i?"cur":"")}"></span>`).join("")}
 
 function renderQ(){if(!run.qs[run.i])run.qs[run.i]=run.l.gen(run.i,run);const q=run.qs[run.i];run.attempts=0;run.done=false;run.struck=false;
-  $("#qNum").textContent=run.boss?`Runde ${run.i+1}`:`Aufgabe ${run.i+1} von 6`;if(!run.boss)renderPips();
+  $("#qNum").textContent=run.challenge?`Stufe ${run.cleared+1}`:run.boss?`Runde ${run.i+1}`:`Aufgabe ${run.i+1} von 6`;if(!run.boss&&!run.challenge)renderPips();
   $("#prompt").innerHTML=q.oni?`<span class="oniline">${oniSVG(64)}<span><span class="claimlbl">Der Chaos-Oni behauptet:</span><br>${q.prompt}</span></span>`:q.prompt;
   const vis=$("#visual"),ans=$("#answer");vis.innerHTML="";ans.innerHTML="";
   $("#checkBtn").hidden=!["input","paint","line"].includes(q.kind);$("#nextBtn").hidden=true;
@@ -1051,7 +1142,7 @@ function renderQ(){if(!run.qs[run.i])run.qs[run.i]=run.l.gen(run.i,run);const q=
   else if(q.kind==="line"){vis.innerHTML=`<div class="nlwrap">${lineSVG({max:q.max,d:q.d,tap:true})}</div>`;
     ans.innerHTML=`<span class="paintcount">Tippe auf den Zahlenstrahl oder ziehe den Pfeil. Pfeiltasten gehen auch.</span>`;setupLine(q)}
   setMika("idle");
-  bubble(run.i===0?run.l.intro:run.boss?pick(["Weiter so, er wankt schon!","Konzentration, nur der erste Versuch zählt!","Du schaffst das!","Schau genau hin."]):
+  bubble(run.i===0?run.l.intro:run.boss?pick(["Weiter so, er wankt schon!","Konzentration, jeder Treffer zählt!","Du schaffst das!","Schau genau hin."]):
     (q.kind==="paint"?"Tippe an, was gefärbt sein soll.":q.kind==="line"?"Wohin gehört der Pfeil?":pick(["Du schaffst das!","Konzentration!","Weiter so!","Schau genau hin."])));
   const first=ans.querySelector(".ans");if(first)setTimeout(()=>first.focus({preventScroll:true}),50)}
 
@@ -1073,7 +1164,7 @@ function check(){if(!run||run.done)return;const q=run.qs[run.i];
   else if(q.kind==="line"){if(run.linePos===0){bubble("Bewege zuerst den Pfeil.");return}evaluate(run.linePos===q.target,{})}}
 $("#checkBtn").addEventListener("click",check);
 
-function evaluate(ok,ctx){const q=run.qs[run.i];const two=q.kind==="choice"&&q.options.length<=2;const max=run.boss||two?1:2;
+function evaluate(ok,ctx){const q=run.qs[run.i];const two=q.kind==="choice"&&q.options.length<=2;const max=1;
   if(ok){const first=run.attempts===0;run.results[run.i]=first?"perfect":"second";if(first)run.score++;
     if(run.boss){run.streak++;let dmg=1,crit=false;if(has("blade")&&run.streak>=3){dmg=2;crit=true;run.streak=0}
       run.hp=Math.max(0,run.hp-dmg);const gain=addXP(10);run.xp+=gain;sfx(crit?"crit":"hit");popDmg(dmg,crit);setMika("happy");
@@ -1081,6 +1172,9 @@ function evaluate(ok,ctx){const q=run.qs[run.i];const two=q.kind==="choice"&&q.o
       if(run.l.secret&&!run.rage&&run.hp>0&&run.hp<=run.maxhp/2){run.rage=true;run.taunt=run.l.rageLine;extra=" <b class=\"crit\">Ryūga verwandelt sich!</b> Ab jetzt kommen nur noch Profi-Aufgaben."}
       if(run.hp===0)run.taunt=run.l.defeat;
       bubble(`<b>${crit?"<b class=\"crit\">KRITISCHER TREFFER!</b>":pick(HITS)}</b> ${q.explain?q.explain+" ":""}<b class="xp">+${gain} XP</b>${extra}`,"good");renderBattle()}
+    else if(run.challenge){run.cleared++;const gain=addXP(5);run.xp+=gain;sfx("good");let extra="";
+      if(run.cleared>=100&&!has("wings")){state.items.wings=true;save();run.gotWings=true;sfx("loot");toast("<b>Regenbogenflügel!</b>Mika kann jetzt fliegen!");extra=" <b>Mika hat Regenbogenflügel bekommen!</b>"}
+      setMika("happy");bubble(`<b>${pick(PRAISE)}</b> Stufe ${run.cleared} geschafft! <b class="xp">+${gain} XP</b>${extra}`,"good");renderChallenge()}
     else{const gain=addXP(first?10:5);run.xp+=gain;sfx("good");setMika("happy");
       bubble(`<b>${pick(PRAISE)}</b> ${q.explain?q.explain+" ":""}<b class="xp">+${gain} XP</b>`,"good")}
     if(ctx.btn)ctx.btn.classList.add("right");if(ctx.els)ctx.els.forEach(e=>e.classList.add("good"));finish();return}
@@ -1093,20 +1187,49 @@ function evaluate(ok,ctx){const q=run.qs[run.i];const two=q.kind==="choice"&&q.o
       if(run.shield){run.shield=false;sfx("bad");msg="<b>Dein Zahnrad-Schild fängt den Treffer ab!</b> ";}
       else{run.hearts--;sfx("hurt");msg=run.hearts>0?"<b>Autsch, ein Herz weg!</b> ":"<b>Oh nein, keine Herzen mehr!</b> ";}
       if(run.hearts===0)run.taunt=run.l.secret?"„Komm wieder, wenn du stärker bist. Ich warte. Ich habe Zeit.“":"„Hahaha! Komm wieder, wenn du geübt hast!“";
-      bubble(msg+"Lösung: "+q.solution,"bad");renderBattle()}
-    else bubble(`${two?"<b>Leider nicht.</b> ":"<b>Lösung:</b> "}${q.solution}`,"bad");
-    $("#answer").querySelectorAll(".opt").forEach((b,k)=>{if(q.options[k].ok)b.classList.add("right")});finish()}}
+      bubble(msg+"Schau dir die Erklärung an.","bad");renderBattle()}
+    else if(run.challenge){run.hearts--;sfx("hurt");bubble(run.hearts>0?`<b>Autsch, ein Leben weg!</b> Noch ${run.hearts}. Schau dir die Erklärung an.`:"<b>Keine Leben mehr!</b> Schau dir die Erklärung an.","bad");renderChallenge()}
+    else bubble("<b>Leider nicht.</b> Schau dir die Erklärung an, dann klappt es beim nächsten Mal.","bad");
+    $("#answer").querySelectorAll(".opt").forEach((b,k)=>{if(q.options[k].ok)b.classList.add("right")});finish();openExplain(q)}}
 
+function openExplain(q){
+  $("#exMika").innerHTML=mikaSVG("idle");
+  $("#exQ").innerHTML=q.oni?`<span class="oniline">${oniSVG(40)}<span>Der Chaos-Oni behauptet: ${q.prompt}</span></span>`:q.prompt;
+  let fig="";
+  if(q.kind==="paint")fig=q.solfig||"";
+  else if(q.reveal)fig=q.kind==="line"?`<div class="nlwrap">${q.reveal()}</div>`:q.reveal();
+  else fig=q.visual||"";
+  $("#exFig").innerHTML=fig;
+  $("#exSteps").innerHTML=(q.steps||[q.hint]).map(t=>`<li><span>${t}</span></li>`).join("");
+  $("#exSol").innerHTML=`<b>Lösung:</b> ${q.solution}`;
+  $("#explain").hidden=false;setTimeout(()=>$("#exClose").focus(),30);
+}
+function closeExplain(){$("#explain").hidden=true;const nb=$("#nextBtn");if(!nb.hidden)nb.focus({preventScroll:true})}
+$("#exClose").addEventListener("click",closeExplain);
+$("#explain").addEventListener("click",e=>{if(e.target.id==="explain")closeExplain()});
 function bossOver(){return run.boss&&(run.hp<=0||run.hearts<=0)}
 function finish(){run.done=true;const q=run.qs[run.i];$("#checkBtn").hidden=true;
   $("#answer").querySelectorAll("button,input").forEach(e=>e.disabled=true);
   $("#visual").querySelectorAll(".seg.tap").forEach(s=>{s.removeAttribute("tabindex");s.classList.remove("tap")});
   if(q.reveal)$("#visual").innerHTML=q.kind==="line"?`<div class="nlwrap">${q.reveal()}</div>`:q.reveal();
-  if(!run.boss)renderPips();const nb=$("#nextBtn");nb.hidden=false;
-  nb.textContent=run.boss?(bossOver()?"Auswertung →":"Nächste Runde →"):(run.i===5?"Auswertung →":"Weiter →");nb.focus({preventScroll:true})}
-$("#nextBtn").addEventListener("click",()=>{if(run.boss?bossOver():run.i===5)showResult();else{run.i++;renderQ();$(".qcard").scrollIntoView({block:"nearest",behavior:"smooth"})}});
+  if(!run.boss&&!run.challenge)renderPips();const nb=$("#nextBtn");nb.hidden=false;
+  nb.textContent=run.challenge?(run.hearts<=0?"Auswertung →":"Nächste Stufe →"):run.boss?(bossOver()?"Auswertung →":"Nächste Runde →"):(run.i===5?"Auswertung →":"Weiter →");nb.focus({preventScroll:true})}
+$("#nextBtn").addEventListener("click",()=>{if(run.challenge?run.hearts<=0:run.boss?bossOver():run.i===5)showResult();else{run.i++;renderQ();$(".qcard").scrollIntoView({block:"nearest",behavior:"smooth"})}});
 
-function showResult(){const l=run.l;let stars,title,text,loot="";const startLv=lvlInfo(run.startXP).lv;
+function showChallengeResult(){const c=run.cleared,prev=state.chBest||0,rec=c>prev,startLv=lvlInfo(run.startXP).lv;
+  if(rec){state.chBest=c;save()}
+  const stars=c>=50?3:c>=25?2:c>=10?1:0;sfx(c?"win":"bad");
+  $("#rEp").textContent="Challenge-Modus";
+  $("#rTitle").textContent=rec&&c>0?"Neuer Rekord!":"Game Over!";
+  $("#rText").textContent=`Du hast ${c} ${c===1?"Stufe":"Stufen"} geschafft · Rekord: ${Math.max(c,prev)} · +${run.xp} XP`;
+  $("#rStars").innerHTML=[0,1,2].map(k=>starSVG(k<stars,"pop",`animation-delay:${k*.18}s`)).join("");
+  const it=ITEMS.wings;
+  $("#rLoot").innerHTML=run.gotWings?`<div class="panel lootbox item ${it.rc}"><span class="lhead">BEUTE ERHALTEN!</span><div class="ihead"><div class="iicon">${ITEM_ICON.wings}</div><div><h4>${it.name}</h4><span class="rar">${it.rarity} · ${it.slot}</span></div></div><p class="perk"><span>Effekt:</span> ${it.perk}</p><p class="flavour">${it.flavour}</p></div>`
+    :(has("wings")?"":`<p class="rt">Noch ${Math.max(0,100-Math.max(c,prev))} Stufen bis zu Mikas Regenbogenflügeln.</p>`);
+  const r=lvlInfo(state.xp);$("#rLvNum").textContent=r.lv;$("#rXpFill").style.width=r.pct+"%";$("#rXpTxt").textContent=`${r.into} / ${r.need} XP`;
+  const up=r.lv-startLv;$("#rLvUp").hidden=up<1;$("#rLvUp").textContent=up>1?`LEVEL UP ×${up}!`:"LEVEL UP!";
+  $("#nextLvBtn").hidden=true;$("#result").hidden=false;$("#againBtn").focus()}
+function showResult(){if(run.challenge){showChallengeResult();return}const l=run.l;let stars,title,text,loot="";const startLv=lvlInfo(run.startXP).lv;
   if(run.boss){const win=run.hp<=0;stars=win?Math.min(3,run.hearts):0;
     if(win){const b=addXP(l.bonus);run.xp+=b;
       if(l.drop&&!has(l.drop)){state.items[l.drop]=true;save();const it=ITEMS[l.drop];sfx("loot");
@@ -1120,7 +1243,7 @@ function showResult(){const l=run.l;let stars,title,text,loot="";const startLv=l
     $("#rEp").textContent=l.secret?"Geheimer Boss":l.oni?"Boss · Alle Themen":`Welt ${l.wi+1} · Miniboss`}
   else{const s=run.score;stars=s>=5?3:s>=3?2:s>=1?1:0;const b=stars?addXP(stars*5):0;run.xp+=b;
     title=stars===3?"Legendär!":stars===2?"Stark gemacht!":stars===1?"Geschafft!":"Weiter üben!";
-    text=`${s} von 6 beim ersten Versuch richtig · +${run.xp} XP${b?` (inkl. ${b} Stern-Bonus)`:""}`;
+    text=`${s} von 6 richtig · +${run.xp} XP${b?` (inkl. ${b} Stern-Bonus)`:""}`;
     $("#rEp").textContent=`Welt ${l.wi+1} · Level ${l.li+1} · ${l.name}`}
   state.stars[l.id]=Math.max(levelStars(l),stars);save();checkSecret();if(!loot)sfx(stars?"win":"bad");
   $("#rTitle").textContent=title;$("#rText").textContent=text;$("#rLoot").innerHTML=loot;
@@ -1131,7 +1254,7 @@ function showResult(){const l=run.l;let stars,title,text,loot="";const startLv=l
   if(nxt)nb.textContent=nxt.secret?"Zum geheimen Boss →":nxt.boss?`Zum ${nxt.mini?"Miniboss":"Boss"} →`:nxt.wi!==l.wi?`Welt ${nxt.wi+1} →`:`Level ${nxt.li+1} →`;
   $("#result").hidden=false;$("#againBtn").focus()}
 function nextAfter(idx){for(let i=idx+1;i<ALL.length;i++){if(ALL[i].secret&&!secretUnlocked())continue;return ALL[i]}return null}
-$("#againBtn").addEventListener("click",()=>{$("#result").hidden=true;startLevel(run.idx)});
+$("#againBtn").addEventListener("click",()=>{$("#result").hidden=true;if(run.challenge)startChallenge();else startLevel(run.idx)});
 $("#nextLvBtn").addEventListener("click",()=>{const n=nextAfter(run.idx);$("#result").hidden=true;if(n)startLevel(ALL.indexOf(n))});
 $("#homeBtn").addEventListener("click",()=>{$("#result").hidden=true;goHome()});
 function goHome(){try{speechSynthesis.cancel()}catch(e){}renderHome();show("home")}
@@ -1147,8 +1270,8 @@ $("#soundBtn").addEventListener("click",()=>{state.sound=!state.sound;save();ren
 $("#startBtn").addEventListener("click",()=>{const n=nextLevel(-1);startLevel(n?ALL.indexOf(n):0)});
 let resetArm=false;
 $("#resetBtn").addEventListener("click",e=>{if(!resetArm){resetArm=true;e.target.textContent="Wirklich? Nochmal tippen zum Löschen";setTimeout(()=>{resetArm=false;e.target.textContent="Fortschritt zurücksetzen"},4000);return}
-  state.xp=0;state.stars={};state.items={};state.secretSeen=false;save();resetArm=false;e.target.textContent="Fortschritt gelöscht";renderHome()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#result").hidden){$("#result").hidden=true;goHome()}});
+  state.xp=0;state.stars={};state.items={};state.secretSeen=false;state.chBest=0;save();resetArm=false;e.target.textContent="Fortschritt gelöscht";renderHome()});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("#explain").hidden){closeExplain();return}if(!$("#result").hidden){$("#result").hidden=true;goHome()}});
 
 renderHome();
 })();
